@@ -1,0 +1,287 @@
+This is a high-security, minimalist interface designed to feel like a redacted terminal. I have shifted the color palette to a stark **Black and White** "Bureaucratic" style to fit the Intelligence Agency aesthetic.
+
+I have included a placeholder for the **Memetic Kill Agent**. It currently uses a high-contrast geometric CSS animation to simulate a "visual hazard," but you can replace the URL in the code with any specific image you prefer.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA-DB | INTERNAL_ONLY</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --dim: #666;
+            --border: #333;
+            --alert: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Courier New", Courier, monospace;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* --- LOADING INTRO --- */
+        #intro-loader {
+            position: fixed;
+            inset: 0;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border);
+            border-top: 2px solid var(--text);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- PAGE BASICS --- */
+        .page { display: none; padding: 50px; min-height: 100vh; }
+        .active { display: block; }
+
+        header {
+            border-bottom: 1px solid var(--text);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        .redacted { background: var(--text); color: var(--text); }
+
+        /* --- HOME GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-width: 800px;
+        }
+
+        .box {
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--dim);
+        }
+
+        .clickable {
+            color: var(--text);
+            border-color: var(--text);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .clickable:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        /* --- FILE LIST --- */
+        .file-list { max-width: 700px; }
+        .file-item {
+            padding: 10px;
+            border-bottom: 1px solid #111;
+            color: #333;
+        }
+        .file-active { color: var(--text); cursor: pointer; border: 1px solid var(--text); margin: 5px 0; }
+
+        /* --- POPUPS --- */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.98);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            text-align: center;
+        }
+
+        .memetic-hazard {
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(from 0deg, #000 0deg 10deg, #fff 10deg 20deg);
+            animation: hazard-spin 0.1s infinite;
+        }
+
+        @keyframes hazard-spin { 
+            0% { transform: scale(1) rotate(0deg); filter: invert(0); }
+            50% { transform: scale(1.5) rotate(180deg); filter: invert(1); }
+            100% { transform: scale(1) rotate(360deg); filter: invert(0); }
+        }
+
+        .email-client {
+            background: #fff;
+            color: #000;
+            width: 600px;
+            padding: 0;
+            border: 2px solid #000;
+            box-shadow: 10px 10px 0px var(--dim);
+        }
+
+        .email-header { background: #eee; padding: 15px; border-bottom: 1px solid #000; font-size: 12px; }
+        .email-body { padding: 20px; min-height: 200px; font-family: sans-serif; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 20px;
+        }
+
+        .btn:hover { background: #444; }
+
+    </style>
+</head>
+<body>
+
+    <div id="intro-loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; font-size: 12px; letter-spacing: 5px;">IA_NET INITIALIZING</p>
+    </div>
+
+    <div id="page-1" class="page">
+        <header>
+            <div style="font-size: 10px; margin-bottom: 10px;">INTELLIGENCE AGENCY // SECURE ACCESS</div>
+            <h1>DATABASE_CENTRAL</h1>
+        </header>
+        <div class="grid">
+            <div class="box">INTERNAL DEFENSES</div>
+            <div class="box">INTELLIGENCE</div>
+            <div class="box">COUNTERINTELLIGENCE</div>
+            <div class="box clickable" onclick="transitionTo(2)">CREATION</div>
+            <div class="box"><span class="redacted">XXXXXXXXX</span> <span class="redacted">XXXXXXX</span></div>
+            <div class="box">NETWORK</div>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <header>
+            <h1>CREATION_LOGS</h1>
+            <p style="color: var(--dim)">INDEXING DEPARTMENTAL ORIGINS...</p>
+        </header>
+        <div class="file-list">
+            <div class="file-item">LOG_001: Department of External Affairs</div>
+            <div class="file-item">LOG_002: MTF-Alpha-1 "Red Right Hand"</div>
+            <div class="file-item file-active" onclick="triggerMemetic()">LOG_003: Intelligence Agency</div>
+            <div class="file-item">LOG_004: Chaos Insurgency (Splinter File)</div>
+            <div class="file-item">LOG_005: Security Sub-Division [REDACTED]</div>
+            <div class="file-item">LOG_006: G.O.I-001 "The Factory"</div>
+        </div>
+    </div>
+
+    <div id="memetic-popup" class="overlay">
+        <div style="border: 1px solid white; padding: 40px; background: black;">
+            <h2 style="color: red;">CRITICAL WARNING</h2>
+            <p>CLEARANCE LEVEL V CLASSIFIED</p>
+            <p style="font-size: 12px;">MEMETIC AGENT ACTIVATING...</p>
+            <button class="btn" style="background: white; color: black;" onclick="fireKillAgent()">PROCEED</button>
+        </div>
+    </div>
+
+    <div id="kill-agent-screen" class="overlay">
+        <div class="memetic-hazard"></div>
+        <h1 style="position:absolute; color:white; background:black; padding: 10px;">SCANNING BIOMETRICS...</h1>
+    </div>
+
+    <div id="email-overlay" class="overlay">
+        <div class="email-client">
+            <div class="email-header" style="text-align: left;">
+                <strong>FROM:</strong> DESTINY ERORATH<br>
+                <strong>TO:</strong> OVERWATCH COUNCIL<br>
+                <strong>SUBJECT:</strong> O.P.S.E.C COMMUNICATIONS [2/12/2009]
+            </div>
+            <div class="email-body" style="text-align: left;">
+                Greetings Council Members,<br><br>
+                The following documentation outlines the establishment of the Intelligence Agency. 
+                All data contained herein is subject to Level 5 security protocols.<br><br>
+                Please acknowledge receipt of these files.
+            </div>
+            <div style="text-align: right;">
+                <button class="btn" onclick="finalRedirect()">PROCEED</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <header>
+            <h1>INTELLIGENCE AGENCY CREATION</h1>
+            <p style="color: var(--dim)">SECURE_FILE_AUTHORIZED</p>
+        </header>
+
+        <section style="margin-bottom: 40px;">
+            <h2 style="border-bottom: 1px solid var(--border);">CREATION (LORE)</h2>
+            <div style="padding: 15px; color: #ccc;">
+                The Intelligence Agency was conceived as the Foundation's primary tool for 
+                clandestine data gathering and counter-insurgency. Formed during the 
+                re-shuffling of 1974... [Additional Data Redacted]
+            </div>
+        </section>
+
+        <section>
+            <h2 style="border-bottom: 1px solid var(--border);">FOLLOW UP</h2>
+            <div style="padding: 15px; color: #ccc;">
+                Ongoing monitoring of the O5-Council remains the priority. 
+                Any deviations in protocol are to be reported to Destiny Erorath immediately.
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initial Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('intro-loader').style.display = 'none';
+                document.getElementById('page-1').classList.add('active');
+            }, 2500);
+        });
+
+        function transitionTo(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageNum).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function triggerMemetic() {
+            document.getElementById('memetic-popup').style.display = 'flex';
+        }
+
+        function fireKillAgent() {
+            document.getElementById('memetic-popup').style.display = 'none';
+            document.getElementById('kill-agent-screen').style.display = 'flex';
+
+            // Show hazard for 5 seconds
+            setTimeout(() => {
+                document.getElementById('kill-agent-screen').style.display = 'none';
+                document.getElementById('email-overlay').style.display = 'flex';
+            }, 5000);
+        }
+
+        function finalRedirect() {
+            document.getElementById('email-overlay').style.display = 'none';
+            transitionTo(3);
+        }
+    </script>
+</body>
+</html>
+```
