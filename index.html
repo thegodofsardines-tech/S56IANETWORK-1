@@ -109,19 +109,22 @@
             text-align: center;
         }
 
-        .memetic-hazard {
+      .memetic-hazard {
             width: 100%;
             height: 100%;
+            /* Your Imgur Direct Link */
             background: url(https://i.imgur.com/9e8Mz6s.jpg) no-repeat center center;
-            animation: hazard-spin 0.1s infinite;
+            background-size: cover;
+            
+            /* This creates a flashing/pulsing effect for the hazard */
+            animation: hazard-pulse 0.5s infinite;
         }
 
-        @keyframes hazard-spin { 
-            0% { transform: scale(1) rotate(0deg); filter: invert(0); }
-            50% { transform: scale(1.5) rotate(180deg); filter: invert(1); }
-            100% { transform: scale(1) rotate(360deg); filter: invert(0); }
+        @keyframes hazard-pulse { 
+            0% { transform: scale(1); filter: invert(0) contrast(1); }
+            50% { transform: scale(1.1); filter: invert(1) contrast(2); }
+            100% { transform: scale(1); filter: invert(0) contrast(1); }
         }
-
         .email-client {
             background: #fff;
             color: #000;
